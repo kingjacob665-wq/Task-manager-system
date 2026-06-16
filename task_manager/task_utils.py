@@ -1,8 +1,15 @@
-from validation import (
-    validate_task_title,
-    validate_task_description,
-    validate_due_date
-)
+try:
+    from task_manager.validation import (
+        validate_task_title,
+        validate_task_description,
+        validate_due_date
+    )
+except ModuleNotFoundError:
+    from validation import (
+        validate_task_title,
+        validate_task_description,
+        validate_due_date
+    )
 
 def add_task(tasks, title, description, due_date):
     try:
@@ -12,7 +19,6 @@ def add_task(tasks, title, description, due_date):
     except ValueError as e:
         print(e)
         return
-
     task = {
         "title": title,
         "description": description,
@@ -22,7 +28,6 @@ def add_task(tasks, title, description, due_date):
     tasks.append(task)
     print("Task added successfully!")
 
-
 def mark_task_as_complete(tasks, title):
     for task in tasks:
         if task["title"] == title:
@@ -31,14 +36,12 @@ def mark_task_as_complete(tasks, title):
             return
     print("Task not found")
 
-
 def view_pending_tasks(tasks):
     pending_tasks = []
     for task in tasks:
         if not task["completed"]:
             pending_tasks.append(task)
     return pending_tasks
-
 
 def calculate_progress(tasks):
     if len(tasks) == 0:
