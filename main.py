@@ -1,14 +1,58 @@
-import sys
-import os
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, '/home/codegrade/student')
+def validate_task_title(title):
+    if len(title.strip()) == 0:
+        raise ValueError("Error: Task title cannot be empty.")
+    return True
 
-from task_utils import (
-    add_task,
-    mark_task_as_complete,
-    view_pending_tasks,
-    calculate_progress
-)
+def validate_task_description(description):
+    if len(description.strip()) == 0:
+        raise ValueError("Error: Task description cannot be empty.")
+    return True
+
+def validate_due_date(due_date):
+    if len(due_date.strip()) == 0:
+        raise ValueError("Error: Due date cannot be empty.")
+    return True
+
+def add_task(tasks, title, description, due_date):
+    try:
+        validate_task_title(title)
+        validate_task_description(description)
+        validate_due_date(due_date)
+    except ValueError as e:
+        print(e)
+        return
+    task = {
+        "title": title,
+        "description": description,
+        "due_date": due_date,
+        "completed": False
+    }
+    tasks.append(task)
+    print("Task added successfully!")
+
+def mark_task_as_complete(tasks, title):
+    for task in tasks:
+        if task["title"] == title:
+            task["completed"] = True
+            print("Task marked as complete!")
+            return
+    print("Task not found")
+
+def view_pending_tasks(tasks):
+    pending_tasks = []
+    for task in tasks:
+        if not task["completed"]:
+            pending_tasks.append(task)
+    return pending_tasks
+
+def calculate_progress(tasks):
+    if len(tasks) == 0:
+        return 0
+    completed_tasks = 0
+    for task in tasks:
+        if task["completed"]:
+            completed_tasks += 1
+    return (completed_tasks / len(tasks)) * 100
 
 tasks = []
 
