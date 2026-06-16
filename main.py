@@ -1,4 +1,4 @@
-from task_manager.task_utils import (
+from task_utils import (
     add_task,
     mark_task_as_complete,
     view_pending_tasks,
@@ -21,7 +21,6 @@ while True:
         title = input("Enter task title: ")
         description = input("Enter task description: ")
         due_date = input("Enter due date: ")
-
         add_task(tasks, title, description, due_date)
 
     elif choice == "2":
@@ -30,7 +29,6 @@ while True:
 
     elif choice == "3":
         pending_tasks = view_pending_tasks(tasks)
-
         if len(pending_tasks) == 0:
             print("No pending tasks")
         else:
