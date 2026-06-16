@@ -5,11 +5,12 @@ from validation import (
 )
 
 def add_task(tasks, title, description, due_date):
-    if not validate_task_title(title):
-        return
-    if not validate_task_description(description):
-        return
-    if not validate_due_date(due_date):
+    try:
+        validate_task_title(title)
+        validate_task_description(description)
+        validate_due_date(due_date)
+    except ValueError as e:
+        print(e)
         return
 
     task = {
